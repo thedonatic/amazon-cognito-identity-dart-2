@@ -5,6 +5,10 @@ import 'package:crypto/crypto.dart';
 
 import 'random_string_helper.dart';
 
+import 'big_int_modpow_base.dart'
+if (dart.library.io) 'big_int_modpow_mobile.dart'
+if (dart.library.html) 'big_int_modpow_web.dart';
+
 final String initN = 'FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1'
     '29024E088A67CC74020BBEA63B139B22514A08798E3404DD'
     'EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245'
@@ -174,13 +178,6 @@ class AuthenticationHelper {
       N,
     );
     return result % N!;
-  }
-
-  BigInt modPow(BigInt? b, BigInt e, BigInt? m) {
-    if (b != null && m != null) {
-      return b.modPow(e, m);
-    }
-    return BigInt.one;
   }
 
   /// Standard hkdf algorithm
